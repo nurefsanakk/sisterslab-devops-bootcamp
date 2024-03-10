@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    container_name: postgre_app
+    volumes:
+      - ./:/postgre_app
+    environment:
+      - name=value
+    ports:
+      - "3000:3000"
+    networks:
+      - my_network
+  db:
+    image: postgres
+    container_name: local_pgdb
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: user-name
+      POSTGRES_PASSWORD: nurefsan1
+    volumes:
+      - local_pgdata:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    ports:
+      - "8080:8080"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user-name@domain-name.com
+      PGADMIN_DEFAULT_PASSWORD: nurefsan1
+      PGADMIN_LISTEN_PORT: 8080
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
+volumes:
+  local_pgdata:
+  pgadmin-data:
+
+networks:
+  my_network:
+    driver: bridge
