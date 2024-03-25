@@ -1,0 +1,20 @@
+#provicer-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment #kubernetes'e bunun ne dosyası olduğu söylüyor kind komutu
+metadata:
+  name: provider-deployment
+spec:
+  replicas: 1 #kaç adet pod olacağını belirlediğimiz alan
+  selector:   #bu da replicaların ne ile match olacağını belirliyor
+    matchLabels:
+      app: provider
+  template:
+    metadata:
+      labels:
+        app: provider
+    spec:
+      containers:
+        - name: provider
+          image: devops-akademi:v3
+          ports:
+            - containerPort: 2000

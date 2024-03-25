@@ -1,0 +1,15 @@
+#provider-service.yaml
+apiVersion: v1
+kind: Service #bunun bir service dosyası olduğunu belirtir.
+
+metadata:
+  name: provider-service
+
+spec:
+  selector:
+    app: provider
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 2000
+  type: ClusterIP
